@@ -1,6 +1,6 @@
-package com.servlet;
+package com.primeton.servlet;
 
-import com.jwt.Jwt;
+import com.primeton.jwt.Jwt;
 import net.minidev.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

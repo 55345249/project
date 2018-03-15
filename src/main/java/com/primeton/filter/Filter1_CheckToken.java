@@ -1,7 +1,7 @@
-package com.filter;
+package com.primeton.filter;
 
-import com.jwt.Jwt;
-import com.jwt.TokenState;
+import com.primeton.jwt.Jwt;
+import com.primeton.jwt.TokenState;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletComponentScan;

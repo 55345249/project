@@ -1,4 +1,4 @@
-package com.servlet;
+package com.primeton.servlet;
 
 import net.minidev.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestMapping;

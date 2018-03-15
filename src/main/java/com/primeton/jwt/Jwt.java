@@ -1,8 +1,9 @@
-package com.jwt;
+package com.primeton.jwt;
 
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
+import com.primeton.jwt.TokenState;
 import net.minidev.json.JSONObject;
 
 import java.util.Date;

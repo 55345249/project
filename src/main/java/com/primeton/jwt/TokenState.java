@@ -1,4 +1,4 @@
-package com.jwt;
+package com.primeton.jwt;
 
 //枚举，定义token的三种状态
 public enum TokenState {

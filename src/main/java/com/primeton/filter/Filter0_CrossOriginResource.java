@@ -1,4 +1,4 @@
-package com.filter;
+package com.primeton.filter;
 
 import com.thetransactioncompany.cors.CORSConfiguration;
 import com.thetransactioncompany.cors.CORSFilter;

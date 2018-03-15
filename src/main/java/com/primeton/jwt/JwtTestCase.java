@@ -1,4 +1,4 @@
-package com.jwt;
+package com.primeton.jwt;
 
 import org.junit.Test;
 
