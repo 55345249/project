@@ -103,7 +103,6 @@
                     if(resp.success){
                         //将token存在本地存储，然后跳转到主页面
                         localStorage.setItem('token',resp.token);
-                        alert(token);
                         location.href="main.html";
                     }
                 }
