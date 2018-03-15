@@ -3,5 +3,41 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+  <display-name>project</display-name>
+  
+  <!--<filter>
+    <filter-name>Filter1_CheckToken</filter-name>
+    <filter-class>com.filter.Filter1_CheckToken</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>Filter1_CheckToken</filter-name>
+    <url-pattern>/servlet/*</url-pattern>
+  </filter-mapping>-->
+
+  <!--<servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>com.servlet.LoginServlet</servlet-class>
+  </servlet>
+    <servlet>
+        <servlet-name>MainServlet</servlet-name>
+        <servlet-class>com.servlet.MainServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AuthorServlet</servlet-name>
+        <servlet-class>com.servlet.AuthorServlet</servlet-class>
+    </servlet>
+
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/servlet/login</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MainServlet</servlet-name>
+    <url-pattern>/servlet/getInfo</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuthorServlet</servlet-name>
+        <url-pattern>/author/token</url-pattern>
+    </servlet-mapping>-->
 </web-app>
+

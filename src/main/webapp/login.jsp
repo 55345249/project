@@ -1,9 +1,10 @@
+
 <html>
 <head>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    <title>login</title>
    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
-   <script src="dist/jquery-2.1.1/jquery.min.js"></script>
+   <script src="dist/js/jquery-2.1.4.min.js"></script>
    <script src="dist/js/bootstrap.min.js"></script>
    <style type="text/css">
     body{
@@ -42,23 +43,22 @@
 
 </head>
    <body>
+
       <div id="login">
-          <form class="bs-example bs-example-form" role="form">
+          <form id="loginform" class="bs-example bs-example-form" role="form">
               <div class="input-group">
                   <span id="username" class="input-group-addon" ></span>
-                  <input id="username1" type="text" class="form-control" placeholder="username">
+                  <input id="username1" type="text" class="form-control" placeholder="username" />
               </div>
-              </br>
+              <br/>
               <div class="input-group">
                   <span id="password" class="input-group-addon"></span>
-                  <input id="password1" type="password" class="form-control" placeholder="password">
+                  <input id="password1" type="password" class="form-control" placeholder="password" />
               </div>
-              </br>
-              <input id="loginbtn" class="btn btn-default" type="button" value="login" onclick="login()">
+              <br/>
+              <input id="loginbtn" class="btn btn-default" type="button" value="login" onclick="login()"/>
           </form>
       </div>
-
-
 
    </body>
 
@@ -66,9 +66,33 @@
         function login(){
             var username=$("#username1").val();
             var password=$("#password1").val();
-            alert(username);
+            $.ajax({
+                type:"get",
+                data:{
+                    "username":username,
+                    "password":password
+                },
+                dataType:'json',
+                url:"/servlet/login",
+                success:function (resp) {
+                    alert(resp.msg);
+                    if(resp.success){
+                        //将token存在本地存储，然后跳转到主页面
+                        localStorage.setItem('token',resp.token);
+                        location.href="main.html";
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("异常");
+                    // 状态码
+                    console.log(XMLHttpRequest.status);
+                    // 状态
+                    console.log(XMLHttpRequest.readyState);
+                    // 错误信息
+                    console.log(textStatus);
+                }
+            });
         }
-
 
    </script>
 
