@@ -9,8 +9,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 @MapperScan("com.primeton.mapper")
 @ServletComponentScan(value = "com")
 public class App {
-
-//5555
+    //new
     public static void main(String args[]) {
         SpringApplication.run(App.class,args);
     }
