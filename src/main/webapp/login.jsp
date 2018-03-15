@@ -92,12 +92,12 @@
 
             $.ajax({
                 type:"get",
-                url:"/servlet/login",
                 data:{
                     "username":username,
                     "password":password
                 },
                 dataType:'json',
+                url:"/servlet/login",
                 success:function (resp) {
                     alert(resp.msg);
                     if(resp.success){
