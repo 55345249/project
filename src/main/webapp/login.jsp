@@ -84,7 +84,6 @@
             var username=$("#username1").val();
             var password=$("#password1").val();
 
-
             var data=$('#loginform').serialize();
             //序列化获得表单数据，结果为：user_id=12&user_name=John&user_age=20
 
@@ -92,27 +91,23 @@
             //submitData是解码后的表单数据，结果同上
 
             $.ajax({
-                url:'',
-                data:submitData,
-                cache:false,//false是不缓存，true为缓存
-                async:true,//true为异步，false为同步
-                beforeSend:function(){
-                    //请求前
-                    alert(data)
+                type:"get",
+                url:"/servlet/login",
+                data:{
+                    "username":username,
+                    "password":password
                 },
-                success:function(result){
-                    //请求成功时
-                    alert(submitData)
-                },
-                complete:function(){
-                    //请求结束时
-                    alert(submitData)
-                },
-                error:function(){
-                    //请求失败时
-                    alert(submitData)
+                dataType:'json',
+                success:function (resp) {
+                    alert(resp.msg);
+                    if(resp.success){
+                        //将token存在本地存储，然后跳转到主页面
+                        localStorage.setItem('token',resp.token);
+                        alert(token);
+                        location.href="main.html";
+                    }
                 }
-            })
+            });
         }
 
 
