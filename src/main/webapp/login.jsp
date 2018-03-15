@@ -1,41 +1,51 @@
-
 <html>
 <head>
-   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
    <title>login</title>
    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
-   <script src="dist/js/jquery-2.1.4.min.js"></script>
+   <script src="dist/jquery-2.1.1/jquery.min.js"></script>
    <script src="dist/js/bootstrap.min.js"></script>
    <style type="text/css">
     body{
         background-image:url("image/login.jpg");
         background-repeat:no-repeat;
         background-position:center;
+        margin-top: 320px;
     }
 
     #login{
         width:200px;
-        margin-top: 280px;
-        margin-left: 760px;
+        margin-left: 830px;
+
     }
 
     .input-group-addon{
         width:40px;
-        background:url('image/smallpic.jpg');
-        background-size:451px 258px;
-
+        background-image:url("image/smallpic.jpg");
+        background-size:388px 231px;
     }
-
     #username{
-        background-position:-360px -58px;
+
     }
     #password{
-        background-position:-186px -58px;
+        background-position:162px 55px;
     }
+
+
     #loginbtn{
         width:120px;
-        margin-left:40px;
+        margin-left:50px;
     }
+    #forget{
+        font-size:20px;
+        margin-left:-30px;
+        color:grey;
+    }
+    #register{
+        font-size:20px;
+        color:grey;
+    }
+
 
 
    </style>
@@ -43,22 +53,29 @@
 
 </head>
    <body>
-
       <div id="login">
           <form id="loginform" class="bs-example bs-example-form" role="form">
               <div class="input-group">
                   <span id="username" class="input-group-addon" ></span>
-                  <input id="username1" type="text" class="form-control" placeholder="username" />
+                  <input id="username1" type="text" class="form-control" placeholder="username">
               </div>
-              <br/>
+              </br>
               <div class="input-group">
                   <span id="password" class="input-group-addon"></span>
-                  <input id="password1" type="password" class="form-control" placeholder="password" />
+                  <input id="password1" type="password" class="form-control" placeholder="password">
               </div>
-              <br/>
-              <input id="loginbtn" class="btn btn-default" type="button" value="login" onclick="login()"/>
+              </br>
+              <input id="loginbtn" class="btn btn-default" type="button" value="login" onclick="login()">
           </form>
+          </br></br>
+          <div>
+          <a id="forget">forget password</a>&nbsp;|&nbsp;
+          <a id="register">register</a>
+          </div>
+
       </div>
+
+
 
    </body>
 
@@ -66,33 +83,39 @@
         function login(){
             var username=$("#username1").val();
             var password=$("#password1").val();
+
+
+            var data=$('#loginform').serialize();
+            //序列化获得表单数据，结果为：user_id=12&user_name=John&user_age=20
+
+            var submitData=decodeURIComponent(data,true);
+            //submitData是解码后的表单数据，结果同上
+
             $.ajax({
-                type:"get",
-                data:{
-                    "username":username,
-                    "password":password
+                url:'',
+                data:submitData,
+                cache:false,//false是不缓存，true为缓存
+                async:true,//true为异步，false为同步
+                beforeSend:function(){
+                    //请求前
+                    alert(data)
                 },
-                dataType:'json',
-                url:"/servlet/login",
-                success:function (resp) {
-                    alert(resp.msg);
-                    if(resp.success){
-                        //将token存在本地存储，然后跳转到主页面
-                        localStorage.setItem('token',resp.token);
-                        location.href="main.html";
-                    }
+                success:function(result){
+                    //请求成功时
+                    alert(submitData)
                 },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert("异常");
-                    // 状态码
-                    console.log(XMLHttpRequest.status);
-                    // 状态
-                    console.log(XMLHttpRequest.readyState);
-                    // 错误信息
-                    console.log(textStatus);
+                complete:function(){
+                    //请求结束时
+                    alert(submitData)
+                },
+                error:function(){
+                    //请求失败时
+                    alert(submitData)
                 }
-            });
+            })
         }
+
+
 
    </script>
 
