@@ -20,13 +20,12 @@ import java.util.Map;
 public class Filter1_CheckToken  implements Filter {
 
     @Override
-    public void doFilter(ServletRequest argo, ServletResponse arg1,
+    public void doFilter(ServletRequest arg0, ServletResponse arg1,
                          FilterChain chain ) throws IOException, ServletException {
-        System.out.println("进入过滤器");
-        HttpServletRequest request=(HttpServletRequest) argo;
+        HttpServletRequest request=(HttpServletRequest) arg0;
         HttpServletResponse response=(HttpServletResponse) arg1;
 //		response.setHeader("Access-Control-Allow-Origin", "*");
-System.out.println("请求URL："+ request.getRequestURI());
+//System.out.println("请求URL："+ request.getRequestURI());
         if(request.getRequestURI().endsWith("/servlet/login")){
             //登陆接口不校验token，直接放行
             chain.doFilter(request, response);

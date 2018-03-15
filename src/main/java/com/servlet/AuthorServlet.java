@@ -19,11 +19,11 @@ import java.util.Map;
 
 @WebServlet(urlPatterns="/author/token",loadOnStartup=1,description="生成token的方法")
 public class AuthorServlet extends HttpServlet{
-    private static final long serialVersionUID = -8463692428988705309L;
+    //private static final long serialVersionUID = -8463692428988705309L;
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String token=request.getHeader("token");
-System.out.println("token=" + token);
+System.out.println("token : " + token);
         Map<String, Object> result= Jwt.validToken(token);
         //转JSON并输出
         PrintWriter out = response.getWriter();
@@ -46,7 +46,7 @@ System.out.println("token=" + token);
         Date date=new Date();
         payload.put("uid", "291969452");//用户id
         payload.put("iat", date.getTime());//生成时间
-        payload.put("ext",date.getTime()+1000*60*60*24*30);//过期时间30天
+        payload.put("ext",date.getTime()+60*60*24*30);//过期时间30天
         String token=null;
         token=Jwt.createToken(payload);
 
