@@ -1,8 +1,7 @@
 package com.primeton.controller;
 
-
-import com.primeton.bean.Img;
-import com.primeton.service.ImgService;
+import com.primeton.domain.Img;
+import com.primeton.service.impl.ImgServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Scope;
@@ -16,7 +15,7 @@ import java.util.List;
 @EnableAutoConfiguration
 public class TestControler{
     @Autowired
-    private ImgService imgService;
+    private ImgServiceImpl imgService;
 
     private String str="1111";
 
