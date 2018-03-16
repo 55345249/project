@@ -1,4 +1,4 @@
-package com.primeton.domain;
+package com.primeton.config;
 
 public class Img {
     private String id;
