@@ -14,3 +14,10 @@ spring:
     initial-size: 5
 mybatis:
   type-aliases-package: com.primeton.domain
+logging:
+  level:
+    org:
+      springframework:
+        web: INFO
+      springboot:
+        sample: TRACE
