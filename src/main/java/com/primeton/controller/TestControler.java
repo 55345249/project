@@ -54,7 +54,7 @@ public class TestControler{
     @RequestMapping("/")
     public ModelAndView login(){
         System.out.println("4444");
-        ModelAndView mv=new ModelAndView("login.jsp");
+        ModelAndView mv=new ModelAndView("login.html");
         return mv;
     }
 
