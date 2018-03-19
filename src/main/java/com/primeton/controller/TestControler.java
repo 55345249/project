@@ -1,13 +1,18 @@
 package com.primeton.controller;
 
+import com.primeton.build.ApplicationServer;
 import com.primeton.domain.Img;
 import com.primeton.service.impl.ImgServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Scope;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -18,7 +23,7 @@ public class TestControler{
     private ImgServiceImpl imgService;
 
     private String str="1111";
-
+    public static final Logger logger = LoggerFactory.getLogger(ApplicationServer.class);
 
     @RequestMapping("/selectImg")
     public List<Img> selectImg1(){
@@ -37,6 +42,7 @@ public class TestControler{
     String hello(){
         System.out.println("被调用"+str);
         str="5555";
+        logger.info("日志输出测试INFO");
         return "hello,spring boot";
     }
 
@@ -45,10 +51,23 @@ public class TestControler{
         return "say"+name;
     }
 
-    @RequestMapping("/login")
-    public String login(){
-        return "login";
+    @RequestMapping("/")
+    public ModelAndView login(){
+        System.out.println("4444");
+        ModelAndView mv=new ModelAndView("login.jsp");
+        return mv;
     }
 
+    @RequestMapping("/insert")
+    public void insertImg(){
+        Img img=new Img("3","png","fffffff");
+        imgService.insert(img);
+    }
+
+    @RequestMapping("del")
+    public void del(){
+        String id="1";
+        imgService.del(id);
+    }
 
 }

@@ -19,5 +19,12 @@ public class ImgServiceImpl {
     public List<Img> selectImg1(){
         return imgMapper.selectImg1();
     }
+    public void insert(Img img){
+        imgMapper.insert(img);
+    }
+    public void del(String id){
+        imgMapper.del(id);
+    }
+
 
 }

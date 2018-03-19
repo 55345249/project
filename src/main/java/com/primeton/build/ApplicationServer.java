@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @SpringBootApplication
-@MapperScan("com.primeton.mapper")
+@MapperScan("com.primeton.repository")
 @ServletComponentScan(value = "com")
 public class ApplicationServer {
     //11111

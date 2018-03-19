@@ -6,6 +6,16 @@ public class Img {
     private String picture;
     private String describe;
 
+
+    public Img() {
+    }
+
+    public Img(String id, String picture, String describe) {
+        this.id = id;
+        this.picture = picture;
+        this.describe = describe;
+    }
+
     public String getId() {
         return id;
     }
