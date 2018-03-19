@@ -3,7 +3,7 @@
 
    <title>login</title>
    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
-   <script src="dist/jquery-2.1.1/jquery.min.js"></script>
+   <script src="dist/js/jquery-2.1.4.min.js"></script>
    <script src="dist/js/bootstrap.min.js"></script>
    <style type="text/css">
     body{

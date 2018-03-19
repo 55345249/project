@@ -3,6 +3,7 @@ package com.primeton.third.jwt;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
+import com.primeton.utils.AES;
 import net.minidev.json.JSONObject;
 
 import java.util.Date;
@@ -11,7 +12,7 @@ import java.util.Map;
 
 public class Jwt {
     //秘钥
-    private static final byte[] SECRET="3d990d2276917dfac04467df11fff26d".getBytes();
+    private static final byte[] SECRET= AES.getKeyByPass().getBytes();
 
     /**
      * 初始化head部分的数据为

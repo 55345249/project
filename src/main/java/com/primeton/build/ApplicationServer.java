@@ -7,7 +7,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @SpringBootApplication
 @MapperScan("com.primeton.repository")
-@ServletComponentScan(value = "com")
+@ServletComponentScan(value = "com.primeton")
 public class ApplicationServer {
     //11111
     public static void main(String args[]) {
