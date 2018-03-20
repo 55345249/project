@@ -14,7 +14,7 @@ import java.util.Map;
 
 //toekn校验过滤器，所有的API接口请求都要经过该过滤器(除了登陆接口)
 @WebFilter("/servlet/*")
-public class Filter1_CheckToken  implements Filter {
+public class Filter0_CheckToken implements Filter {
 
     @Override
     public void doFilter(ServletRequest arg0, ServletResponse arg1,
@@ -32,6 +32,7 @@ public class Filter1_CheckToken  implements Filter {
         System.out.println("开始校验token");
         //从请求头中获取token
         String token=request.getHeader("token");
+System.out.println("token过滤器中获取的token=" + token);
         Map<String, Object> resultMap= Jwt.validToken(token);
         TokenState state= TokenState.getTokenState((String)resultMap.get("state"));
         switch (state) {

@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
-		<title></title>
+		<title>主页面</title>
 	</head>
 	<body>
 		我是主页面
@@ -12,7 +12,6 @@
 		<script type="text/javascript" src="dist/js/jquery-2.1.4.min.js" ></script>
 		<script>
 			$("#getdata").on('click',function(e){
-			//alert(localStorage.getItem("token"));
 				$.ajax({
 					type:"get",
 					dataType:"json",
@@ -31,7 +30,7 @@
 			
 			$("#loginout").on("click",function(){
 				localStorage.removeItem("token");
-				location.href="login.jsp";
+				location.href="login.html";
 			});
 		</script>
 	</body>
