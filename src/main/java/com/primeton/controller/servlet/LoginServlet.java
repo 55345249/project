@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
             Date date=new Date();
             payload.put("uid", "admin");//用户ID
             payload.put("iat", date.getTime());//生成时间
-            payload.put("ext",date.getTime()+120);//过期时间2分钟
+            payload.put("ext",date.getTime()+1000*60*2);//过期时间2分钟
             String token= Jwt.createToken(payload);
 
             resultJSON.put("success", true);
