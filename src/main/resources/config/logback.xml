@@ -53,7 +53,7 @@
         <appender-ref ref="STDOUT" />
         <appender-ref ref="async" />
     </root>
-    <!--日志异步到数据库 -->  
+    <!--日志异步到数据库 -->
     <!--<appender name="DB" class="ch.qos.logback.classic.db.DBAppender">-->
     <!--&lt;!&ndash;日志异步到数据库 &ndash;&gt;-->
     <!--<connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">-->
