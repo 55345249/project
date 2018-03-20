@@ -6,6 +6,7 @@ import net.minidev.json.JSONObject;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -13,8 +14,11 @@ import java.io.PrintWriter;
 import java.util.Map;
 
 //toekn校验过滤器，所有的API接口请求都要经过该过滤器(除了登陆接口)
-@WebFilter("/servlet/*")
+@WebFilter(urlPatterns = "/servlet/*",initParams={@WebInitParam(name = "ignore",value="/servlet/login")})
 public class Filter0_CheckToken implements Filter {
+
+
+    private String ignoresParam = "";
 
     @Override
     public void doFilter(ServletRequest arg0, ServletResponse arg1,
@@ -23,11 +27,17 @@ public class Filter0_CheckToken implements Filter {
         HttpServletResponse response=(HttpServletResponse) arg1;
 //		response.setHeader("Access-Control-Allow-Origin", "*");
 //System.out.println("请求URL："+ request.getRequestURI());
-        if(request.getRequestURI().endsWith("/servlet/login")){
+/*        if(request.getRequestURI().endsWith("/servlet/login")){
             //登陆接口不校验token，直接放行
             chain.doFilter(request, response);
             return;
+        }*/
+
+        if (canIgnore(request)) {
+            chain.doFilter(arg0, arg1);
+            return;
         }
+
         //其他API接口一律校验token
         System.out.println("开始校验token");
         //从请求头中获取token
@@ -66,10 +76,22 @@ System.out.println("token过滤器中获取的token=" + token);
     @Override
     public void init(FilterConfig arg0) throws ServletException {
         System.out.println("token过滤器初始化了");
+        ignoresParam = arg0.getInitParameter("ignore");
     }
 
     @Override
     public void destroy() {
 
+    }
+
+    private boolean canIgnore(HttpServletRequest request) {
+        String url = request.getRequestURI();
+        //System.out.println("url------------->"+url);
+
+           if (url.endsWith(ignoresParam.replace("*",""))) {
+                return true;
+            }else{
+               return false;
+           }
     }
 }

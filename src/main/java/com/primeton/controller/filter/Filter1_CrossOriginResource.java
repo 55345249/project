@@ -22,12 +22,13 @@ initParams={
         @WebInitParam(name="cors.supportedHeaders",value="token,Accept, Origin, X-Requested-With, Content-Type, Last-Modified"),//注意，如果token字段放在请求头传到后端，这里需要配置
         @WebInitParam(name="cors.exposedHeaders",value="Set-Cookie"),
         @WebInitParam(name="cors.supportsCredentials",value="true"),
-        @WebInitParam(name="ignores",value="*.js,*.css,*.png,*.jpg,*.gif,*.html")
+        @WebInitParam(name="ignores",value="*.js,*.css,*.png,*.jpg,*.gif,/login.html,/servlet/login")
 })
 public class Filter1_CrossOriginResource extends CORSFilter implements Filter{
 
     private Set<String> prefixIignores = new HashSet<String>();
 
+    @Override
     public void init(FilterConfig config) throws ServletException {
         System.out.println("跨域资源处理过滤器初始化了");
         super.init(config);
@@ -38,25 +39,30 @@ public class Filter1_CrossOriginResource extends CORSFilter implements Filter{
             prefixIignores.add(s);
         }
     }
-
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
         System.out.println("跨域过滤器");
         //super.doFilter(request, response, chain);
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
-        String token=req.getHeader("token");
-System.out.println("全局过滤器中获取的token=" + token);
-        if(token == null){
-            //res.sendRedirect("/login.html");
-            req.getRequestDispatcher("/login.html");
-        }
 
+        //是否静态的，是静态的，直接放过。
         if (canIgnore(req)) {
             chain.doFilter(request, response);
             return;
-        }else{
+        }
+
+        else{
+            String token=req.getHeader("token");
+            System.out.println("全局过滤器中获取的token=" + token);
+            if(token == null){
+                res.sendRedirect("/login.html");
+                //req.getRequestDispatcher("/login.html");
+                return;
+            }
             super.doFilter(request, response, chain);
         }
     }
@@ -74,7 +80,7 @@ System.out.println("全局过滤器中获取的token=" + token);
         String url = request.getRequestURI();
         //System.out.println("url------------->"+url);
         for (String ignore : prefixIignores) {
-            if (url.endsWith(ignore)) {
+            if (url.endsWith(ignore.replace("*",""))) {
                 return true;
             }
         }
