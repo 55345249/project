@@ -33,3 +33,7 @@
 3.spring.xml置于META-INF/spring文件夹下
 
 4.页面以及js/css/image等置于static文件夹下的各自文件下
+
+根目录：src/main.webapp
+
+1.存放web页面资源
