@@ -23,7 +23,7 @@ public class TestControler{
     private ImgServiceImpl imgService;
 
     private String str="1111";
-    public static final Logger logger = LoggerFactory.getLogger(ApplicationServer.class);
+    private static final Logger logger = LoggerFactory.getLogger(TestControler.class);
 
     @RequestMapping("/selectImg")
     public List<Img> selectImg1(){
