@@ -17,10 +17,10 @@ import java.util.Map;
 
 //toekn校验过滤器，所有的API接口请求都要经过该过滤器(除了登陆接口)
 @WebFilter(urlPatterns = "/servlet/*", initParams = {@WebInitParam(name = "ignore", value = "/servlet/login")})
-public class Filter0_CheckToken implements Filter {
+public class Filter1_CheckToken implements Filter {
 
 
-    private static final Logger logger = LoggerFactory.getLogger(Filter0_CheckToken.class);
+    private static final Logger logger = LoggerFactory.getLogger(Filter1_CheckToken.class);
 
     private String ignoresParam = "";
 
@@ -29,13 +29,6 @@ public class Filter0_CheckToken implements Filter {
                          FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) arg0;
         HttpServletResponse response = (HttpServletResponse) arg1;
-        //response.setHeader("Access-Control-Allow-Origin", "*");
-        //System.out.println("请求URL："+ request.getRequestURI());
-        /*        if(request.getRequestURI().endsWith("/servlet/login")){
-                    //登陆接口不校验token，直接放行
-                    chain.doFilter(request, response);
-                    return;
-                }*/
 
         if (canIgnore(request)) {
             chain.doFilter(arg0, arg1);
@@ -89,8 +82,6 @@ public class Filter0_CheckToken implements Filter {
 
     private boolean canIgnore(HttpServletRequest request) {
         String url = request.getRequestURI();
-        //System.out.println("url------------->"+url);
-
         if (url.endsWith(ignoresParam.replace("*", ""))) {
             return true;
         } else {

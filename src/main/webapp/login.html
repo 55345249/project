@@ -100,13 +100,17 @@
                 dataType:'json',
                 url:"/servlet/login",
                 success:function (resp) {
-                    alert(resp.msg);
                     if(resp.success){
                         //将token存在本地存储，然后跳转到主页面
                         localStorage.setItem('token',resp.token);
-                        location.href="main.html";
+                        alert(resp.msg);
+
+                        location.href="indexNew.html";
+
                     }
                 },
+
+
                 error:function(XMLHttpRequest, textStatus, errorThrown){
                     alert('异常');
                     console.log(XMLHttpRequest.status);

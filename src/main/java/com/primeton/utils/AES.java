@@ -1,6 +1,8 @@
 package com.primeton.utils;
 
 import com.primeton.constant.CreateSecretKey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -8,6 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 public class AES {
+    private static final Logger logger = LoggerFactory.getLogger(AES.class);
     //随机生成秘钥
     public static String getKey() {
         try {
@@ -17,14 +20,14 @@ public class AES {
             SecretKey sk = kg.generateKey();
             byte[] b = sk.getEncoded();
             String s = byteToHexString(b);
-            System.out.println(s);
-            System.out.println("十六进制密钥长度为"+s.length());
-            System.out.println("二进制密钥的长度为"+s.length()*4);
+            logger.info(s);
+            logger.info("十六进制密钥长度为"+s.length());
+            logger.info("二进制密钥的长度为"+s.length()*4);
             return s;
         }
         catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-            System.out.println("没有此算法");
+            logger.info("没有此算法");
             return null;
         }
     }
@@ -40,14 +43,14 @@ public class AES {
             SecretKey sk = kg.generateKey();
             byte[] b = sk.getEncoded();
             String s = byteToHexString(b);
-            System.out.println(s);
-            System.out.println("十六进制密钥长度为"+s.length());
-            System.out.println("二进制密钥的长度为"+s.length()*4);
+            logger.info(s);
+            logger.info("十六进制密钥长度为"+s.length());
+            logger.info("二进制密钥的长度为"+s.length()*4);
             return s;
         }
         catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-            System.out.println("没有此算法");
+            logger.info("没有此算法");
             return null;
         }
     }

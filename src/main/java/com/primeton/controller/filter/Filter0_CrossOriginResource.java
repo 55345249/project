@@ -1,5 +1,6 @@
 package com.primeton.controller.filter;
 
+import com.primeton.utils.CookiesUtil;
 import com.thetransactioncompany.cors.CORSConfiguration;
 import com.thetransactioncompany.cors.CORSFilter;
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,9 +28,9 @@ import java.util.Set;
                 @WebInitParam(name = "cors.supportsCredentials", value = "true"),
                 @WebInitParam(name = "ignores", value = "*.js,*.css,*.png,*.jpg,*.gif,/login.html,/servlet/login")
         })
-public class Filter1_CrossOriginResource extends CORSFilter implements Filter {
+public class Filter0_CrossOriginResource extends CORSFilter implements Filter {
 
-    private static final Logger logger = LoggerFactory.getLogger(Filter0_CheckToken.class);
+    private static final Logger logger = LoggerFactory.getLogger(Filter0_CrossOriginResource.class );
 
     private Set<String> prefixIignores = new HashSet<String>();
 
@@ -46,24 +48,43 @@ public class Filter1_CrossOriginResource extends CORSFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-
-        logger.info("跨域过滤器");
+        //logger.info("跨域过滤器");
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-
 
         //是否静态的，是静态的，直接放过。
         if (canIgnore(req)) {
             chain.doFilter(request, response);
             return;
         } else {
-            String token = req.getHeader("token");
-            logger.info("全局过滤器中获取的token=" + token);
-            if (token == null) {
-                res.sendRedirect("/login.html");
-                //req.getRequestDispatcher("/login.html");
-                return;
+            //String token = req.getHeader("token");
+            String token = "";
+            /*Cookie[] cookie = req.getCookies();
+            if (cookie != null && cookie.length > 0) {
+
+                for (int i = 0; i < cookie.length; i++) {
+                    Cookie cook = cookie[i];
+                    if (cook.getName().equalsIgnoreCase("token")) { //获取键
+                        System.out.println("token:" + cook.getValue().toString());    //获取值
+                        token = cook.getValue().toString();
+                    }
+                }
+            }*/
+            //String token = req.getCookies("token").value();
+            Cookie cookie = CookiesUtil.getCookieByName(req,"token");
+            if (cookie != null){
+                token = cookie.getValue();
             }
+            logger.info("全局过滤器中获取的token=" + token);
+
+            if (null == token || "".equals(token)) {
+                token = req.getHeader("token");
+                if (null == token || "".equals(token)) {
+                    res.sendRedirect("/login.html");
+                    return;
+                }
+            }
+
             super.doFilter(request, response, chain);
         }
     }
@@ -79,7 +100,6 @@ public class Filter1_CrossOriginResource extends CORSFilter implements Filter {
 
     private boolean canIgnore(HttpServletRequest request) {
         String url = request.getRequestURI();
-        //System.out.println("url------------->"+url);
         for (String ignore : prefixIignores) {
             if (url.endsWith(ignore.replace("*", ""))) {
                 return true;
