@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
             Date date=new Date();
             payload.put("uid", "admin");//用户ID
             payload.put("iat", date.getTime());//生成时间
-            payload.put("ext",date.getTime()+1000*60*2);//设置token的过期时间2分钟
+            payload.put("ext",date.getTime()+1000*60*60*24);//设置token的过期时间1天
             String token= Jwt.createToken(payload);
 
             //CookiesUtil cookie = new CookiesUtil();
@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
             Cookie cookie = new Cookie("token",token);
             cookie.setPath("/");
 
-            cookie.setMaxAge(120);//此处设置cookie的过期时间为2分钟
+            cookie.setMaxAge(60*60*24);//此处设置cookie的过期时间为1天
 
             response.addCookie(cookie);
 
