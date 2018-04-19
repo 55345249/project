@@ -24,6 +24,8 @@
         try{ace.settings.check('navbar' , 'fixed')}catch(e){}
 
 
+
+
     </script>
 
     <div class="navbar-container" id="navbar-container">
@@ -190,13 +192,13 @@
 
                 <li class="light-blue">
 
-                    <a id="logout" data-toggle="dropdown" class="dropdown-toggle">
+                    <a data-toggle="dropdown" class="dropdown-toggle">
                         <img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo"/>
                         <span class="user-info">
 									<small>欢迎光临,</small>
 									Jason
 								</span>
-
+                    <span id="logout" style="cursor:pointer">退出</span>
                         <i class="icon-caret-down"></i>
                     </a>
 
@@ -688,6 +690,8 @@
     window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>"+"<"+"script>");
     window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"script>");
     if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"script>");
+
+
 </script>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -704,9 +708,31 @@
 
     $("#logout").on("click",function(){
         localStorage.removeItem("token");
+        removeCookie("token");
         location.href="login.html";
     });
+    function getCookie(token){
+        if (document.cookie.length>0){
+            c_start=document.cookie.indexOf(token + "=");
+            if (c_start!=-1){
+                c_start=c_start + token.length+1;
+                c_end=document.cookie.indexOf(";",c_start);
+                if (c_end==-1) c_end=document.cookie.length ;
+                    return unescape(document.cookie.substring(c_start,c_end));
+            }
+        }
+        return "";
+    }
 
+    function setCookie(token,value,expiredays){
+        var exdate=new Date();
+        exdate.setDate(exdate.getDate()+expiredays);
+        document.cookie=token+ "=" +escape(value)+((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+    }
+
+    function removeCookie(token){
+        setCookie(token, "", -1); //-1就是告诉系统已经过期，系统就会立刻去删除cookie
+    };
 </script>
 
 
