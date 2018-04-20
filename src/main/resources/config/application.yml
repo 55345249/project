@@ -4,9 +4,9 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/test
+    url: jdbc:mysql://192.168.20.132:8066/TESTDB
     username: root
-    password: root
+    password: 123456
     driver-class-name: com.mysql.jdbc.Driver
     max-idle: 10
     max-wait: 10000

@@ -1,14 +1,14 @@
 package com.primeton.controller;
 
-import com.primeton.build.ApplicationServer;
 import com.primeton.domain.Img;
+import com.primeton.domain.CapUser;
 import com.primeton.service.impl.ImgServiceImpl;
+import com.primeton.service.impl.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Scope;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +21,8 @@ import java.util.List;
 public class TestControler{
     @Autowired
     private ImgServiceImpl imgService;
-
+    @Autowired
+    private UserServiceImpl userService;
     private String str="1111";
     private static final Logger logger = LoggerFactory.getLogger(TestControler.class);
 
@@ -54,7 +55,7 @@ public class TestControler{
     @RequestMapping("/")
     public ModelAndView login(){
         System.out.println("4444");
-        ModelAndView mv=new ModelAndView("main.html");
+        ModelAndView mv=new ModelAndView("indexNew.jsp");
         return mv;
     }
 
@@ -63,7 +64,11 @@ public class TestControler{
         Img img=new Img("3","png","fffffff");
         imgService.insert(img);
     }
-
+    @RequestMapping("/insertUser")
+    public void insertUser(){
+        CapUser user = new CapUser("1","01","001","monkey","123456","2013-03-16 11:58:31","2013-03-16 11:58:31","2013-03-16 11:58:31");
+        userService.insert(user);
+    }
     @RequestMapping("del")
     public void del(){
         String id="1";
