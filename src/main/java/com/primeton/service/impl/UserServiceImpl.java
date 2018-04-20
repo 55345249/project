@@ -15,8 +15,7 @@ public class UserServiceImpl implements UserMapper {
     }*/
 
     @Override
-    public String insert(CapUser user) {
+    public void insert(CapUser user) {
         userMapper.insert(user);
-        return "执行插入操作";
     }
 }

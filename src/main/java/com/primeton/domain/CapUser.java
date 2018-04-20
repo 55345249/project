@@ -1,8 +1,6 @@
 package com.primeton.domain;
 
-import org.directwebremoting.annotations.DataTransferObject;
 
-@DataTransferObject
 public class CapUser {
 
     String operatorId;

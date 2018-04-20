@@ -4,6 +4,7 @@ import com.primeton.domain.Img;
 import com.primeton.domain.CapUser;
 import com.primeton.service.impl.ImgServiceImpl;
 import com.primeton.service.impl.UserServiceImpl;
+import com.primeton.utils.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,8 +67,17 @@ public class TestControler{
     }
     @RequestMapping("/insertUser")
     public void insertUser(){
-        CapUser user = new CapUser("1","01","001","monkey","123456","2013-03-16 11:58:31","2013-03-16 11:58:31","2013-03-16 11:58:31");
-        userService.insert(user);
+        
+        int count = 0;
+        for(int i = 0; i<10000 ;i ++) {
+            StringBuffer sb = new StringBuffer("");
+            String operValue = (sb.append(DateUtil.getDateForSS()).append(String.valueOf(count))).toString();
+            logger.info("operValue:"+operValue);
+            CapUser user = new CapUser(operValue, "01", "001", "monkey", "123456", "2013-03-16 11:58:31", "2013-03-16 11:58:31", "2013-03-16 11:58:31");
+
+            userService.insert(user);
+            count++ ;
+        }
     }
     @RequestMapping("del")
     public void del(){
