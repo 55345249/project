@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 
 @RestController
@@ -65,24 +67,42 @@ public class TestControler{
         Img img=new Img("3","png","fffffff");
         imgService.insert(img);
     }
-    @RequestMapping("/insertUser")
-    public void insertUser(){
-        
-        int count = 0;
-        for(int i = 0; i<10000 ;i ++) {
-            StringBuffer sb = new StringBuffer("");
-            String operValue = (sb.append(DateUtil.getDateForSS()).append(String.valueOf(count))).toString();
-            logger.info("operValue:"+operValue);
-            CapUser user = new CapUser(operValue, "01", "001", "monkey", "123456", "2013-03-16 11:58:31", "2013-03-16 11:58:31", "2013-03-16 11:58:31");
 
-            userService.insert(user);
-            count++ ;
-        }
-    }
     @RequestMapping("del")
     public void del(){
         String id="1";
         imgService.del(id);
     }
 
+    @RequestMapping("/insertUser")
+    public void insertUser(){
+
+        int count = 0;
+
+        logger.info("##########开始时间：" + DateUtil.getDateForSS());
+        String operatorId = DateUtil.getDateForSS();
+        String hostAdress = "";
+        try {
+            InetAddress address = InetAddress.getLocalHost();
+            hostAdress = address.getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+            logger.info("未识别主机IP");
+        }
+        for(int i = 0; i<10000 ;i ++) {
+            StringBuffer sb = new StringBuffer("");
+            String operValue = (sb.append(operatorId).append(hostAdress.replace(".","")).append(String.valueOf(count))).toString();
+            //logger.info("operValue:"+operValue);
+            CapUser user = new CapUser(operValue, "01", "001", "monkey", "123456", "2013-03-16 11:58:31", "2013-03-16 11:58:31", "2013-03-16 11:58:31");
+            userService.insert(user);
+            count++ ;
+        }
+        logger.info("##########结束时间：" + DateUtil.getDateForSS());
+    }
+
+    @RequestMapping("/selectUser/{startNum}/{viewNum}")
+    public List<CapUser> selectUser(@PathVariable("startNum") Integer startNum,@PathVariable("viewNum") Integer viewNum){
+        logger.info("起始条数：" + String.valueOf(startNum) + ",显示条数：" +String.valueOf(viewNum));
+        return userService.selectUser(startNum,viewNum);
+    }
 }
