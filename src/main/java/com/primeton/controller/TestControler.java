@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
@@ -104,5 +106,21 @@ public class TestControler{
     public List<CapUser> selectUser(@PathVariable("startNum") Integer startNum,@PathVariable("viewNum") Integer viewNum){
         logger.info("起始条数：" + String.valueOf(startNum) + ",显示条数：" +String.valueOf(viewNum));
         return userService.selectUser(startNum,viewNum);
+    }
+
+
+    @RequestMapping("/main")
+    public void main(HttpServletResponse response) {
+        try {
+            response.sendRedirect("/main.html");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping("/main1")
+    public String main1() {
+
+        return "main1";
     }
 }

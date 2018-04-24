@@ -1,6 +1,9 @@
 server:
   port: 8080
 spring:
+  devtools:
+    restart:
+      enabled: true
   profiles:
     active: dev
   datasource:
@@ -12,6 +15,13 @@ spring:
     max-wait: 10000
     min-idle: 5
     initial-size: 5
+  thymeleaf:
+    mode: LEGACYHTML5
+    cache: false
+  mvc:
+    static-path-pattern: /**
+  resources:
+    static-locations: classpath:/templates/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
 mybatis:
   type-aliases-package: com.primeton.domain
 logging:
