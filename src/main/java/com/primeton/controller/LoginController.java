@@ -28,10 +28,5 @@ public class LoginController {
         return "index_v1";
     }
 
-    @RequestMapping("/main1")
-    public String main1() {
-
-        return "/zelda/index";
-    }
 
 }
