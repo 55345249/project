@@ -118,9 +118,5 @@ public class TestControler{
         }
     }
 
-    @RequestMapping("/main1")
-    public String main1() {
 
-        return "main1";
-    }
 }

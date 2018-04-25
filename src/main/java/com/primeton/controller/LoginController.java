@@ -23,7 +23,15 @@ public class LoginController {
 
         model.addAttribute("username", "admin");
 
+
+
         return "index_v1";
+    }
+
+    @RequestMapping("/main1")
+    public String main1() {
+
+        return "/zelda/index";
     }
 
 }
