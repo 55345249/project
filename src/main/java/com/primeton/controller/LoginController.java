@@ -19,7 +19,7 @@ public class LoginController {
 
         logger.info("--------index----------");
 
-        model.addAttribute("picUrl","/img/photo_s.jpg");
+        model.addAttribute("picUrl","/img/profile_small.jpg");
 
         model.addAttribute("username", "admin");
 
