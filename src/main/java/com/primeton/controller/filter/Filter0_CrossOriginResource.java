@@ -26,7 +26,7 @@ import java.util.Set;
                 @WebInitParam(name = "cors.supportedHeaders", value = "token,Accept, Origin, X-Requested-With, Content-Type, Last-Modified"),//注意，如果token字段放在请求头传到后端，这里需要配置
                 @WebInitParam(name = "cors.exposedHeaders", value = "Set-Cookie"),
                 @WebInitParam(name = "cors.supportsCredentials", value = "true"),
-                @WebInitParam(name = "ignores", value = "*.js,*.css,*.png,*.jpg,*.gif,/login.html,/servlet/login")
+                @WebInitParam(name = "ignores", value = "*.js,*.css,*.png,*.jpg,*.gif,/login_new.html,/servlet/login")
         })
 public class Filter0_CrossOriginResource extends CORSFilter implements Filter {
 
@@ -80,7 +80,7 @@ public class Filter0_CrossOriginResource extends CORSFilter implements Filter {
             if (null == token || "".equals(token)) {
                 token = req.getHeader("token");
                 if (null == token || "".equals(token)) {
-                    res.sendRedirect("/login.html");
+                    res.sendRedirect("/login_new.html");
                     return;
                 }
             }
