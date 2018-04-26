@@ -76,39 +76,6 @@ public class TestControler{
         imgService.del(id);
     }
 
-    @RequestMapping("/insertUser")
-    public void insertUser(){
-
-        int count = 0;
-
-        logger.info("##########开始时间：" + DateUtil.getDateForSS());
-        String operatorId = DateUtil.getDateForSS();
-        String hostAdress = "";
-        try {
-            InetAddress address = InetAddress.getLocalHost();
-            hostAdress = address.getHostAddress();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-            logger.info("未识别主机IP");
-        }
-        for(int i = 0; i<10000 ;i ++) {
-            StringBuffer sb = new StringBuffer("");
-            String operValue = (sb.append(operatorId).append(hostAdress.replace(".","")).append(String.valueOf(count))).toString();
-            //logger.info("operValue:"+operValue);
-            CapUser user = new CapUser(operValue, "01", "001", "monkey", "123456", "2013-03-16 11:58:31", "2013-03-16 11:58:31", "2013-03-16 11:58:31");
-            userService.insert(user);
-            count++ ;
-        }
-        logger.info("##########结束时间：" + DateUtil.getDateForSS());
-    }
-
-    @RequestMapping("/selectUser/{startNum}/{viewNum}")
-    public List<CapUser> selectUser(@PathVariable("startNum") Integer startNum,@PathVariable("viewNum") Integer viewNum){
-        logger.info("起始条数：" + String.valueOf(startNum) + ",显示条数：" +String.valueOf(viewNum));
-        return userService.selectUser(startNum,viewNum);
-    }
-
-
     @RequestMapping("/main")
     public void main(HttpServletResponse response) {
         try {

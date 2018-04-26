@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--<meta charset="UTF-8">-->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>查询用户</title>
+
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+<script src="dist/js/jquery-2.1.4.min.js"></script>
+<script src="dist/js/bootstrap.min.js"></script>
+<div>
+    <table id="table" data-click-to-select="true" class="table table-bordered" data-page-size="20">
+        <thead>
+        <tr>
+            <th data-sortable="true" data-field="operatorId">operatorId</th>
+            <th data-sortable="true" data-field="tenantId">tenantId</th>
+            <th data-sortable="true" data-field="userId">userId</th>
+            <th data-sortable="true" data-field="userId">userId</th>
+            <th data-sortable="true" data-field="passWord">passWord</th>
+            <th data-sortable="true" data-field="unlockTime">unlockTime</th>
+            <th data-sortable="true" data-field="lastLogin">lastLogin</th>
+            <th data-sortable="true" data-field="createTime">createTime</th>
+        </tr>
+        </thead>
+        <tbody th:unless="${sessionScope.userList != null}">
+        <tr th:each="user,iter:${userList}">
+            <td th:text="${user.operatorId}"></td>
+            <td th:text="${user.tenantId}"></td>
+            <td th:text="${user.userId}"></td>
+            <td th:text="${user.userName}"></td>
+            <td th:text="${user.passWord}"></td>
+            <td th:text="${user.unlockTime}"></td>
+            <td th:text="${user.lastLogin}"></td>
+            <td th:text="${user.createTime}"></td>
+            <!--<td th:text="${iter.index}"></td>-->
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<script type="text/javascript">
+    $("#table").bootstrapTable({
+               search: true,
+                pagination: false,
+                pageSize: 15,
+                pageList: [5, 10, 15, 20],
+                showColumns: true,
+                showRefresh: false,
+                showToggle: true,
+                locale: "zh-CN",
+                striped: true
+        });
+
+</script>
+</html>

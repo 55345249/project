@@ -1,16 +1,14 @@
-var prefix = "/sys/user"
 $(function() {
-	var deptId = '';
-	getTreeData();
-	load(deptId);
+	var operatorId = '';
+	load(operatorId);
 });
 
-function load(deptId) {
+function load(operatorId) {
 	$('#exampleTable')
 		.bootstrapTable(
 			{
 				method : 'get', // 服务器数据的请求方式 get or post
-				url : prefix + "/list", // 服务器数据的加载地址
+				url : "/list", // 服务器数据的加载地址
 				// showRefresh : true,
 				// showToggle : true,
 				// showColumns : true,
@@ -36,7 +34,7 @@ function load(deptId) {
 						limit : params.limit,
 						offset : params.offset,
 						name : $('#searchName').val(),
-						deptId : deptId
+						operatorId : operatorId
 					};
 				},
 				// //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果
@@ -50,22 +48,34 @@ function load(deptId) {
 						checkbox : true
 					},
 					{
-						field : 'userId', // 列字段名
-						title : '序号' // 列标题
+						field : 'operatorId', // 列字段名
+						title : '操作员ID' // 列标题
 					},
 					{
-						field : 'name',
-						title : '姓名'
+						field : 'tenantId',
+						title : '租户ID'
 					},
 					{
-						field : 'username',
+						field : 'userId',
+						title : '用户ID'
+					},
+					{
+						field : 'userName',
 						title : '用户名'
-					},
-					{
-						field : 'email',
-						title : '邮箱'
-					},
-					{
+					},{
+                        field : 'passWord',
+                        title : '密码'
+                    },{
+                        field : 'unlockTime',
+                        title : '解锁时间'
+                    },{
+                        field : 'lastLogin',
+                        title : '最后登录时间'
+                    },{
+                        field : 'createTime',
+                        title : '创建时间'
+                    }
+					/*{
 						field : 'status',
 						title : '状态',
 						align : 'center',
@@ -93,7 +103,7 @@ function load(deptId) {
 								+ '\')"><i class="fa fa-key"></i></a> ';
 							return e + d + f;
 						}
-					} ]
+					} ]*/]
 			});
 }
 function reLoad() {

@@ -1,6 +1,9 @@
 package com.primeton.domain;
 
 
+import javax.persistence.Table;
+
+@Table(name="cap_user")
 public class CapUser {
 
     String operatorId;
