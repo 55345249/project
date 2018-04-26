@@ -28,5 +28,19 @@ public class LoginController {
         return "index_v1";
     }
 
+    @GetMapping({ "/" })
+    public String indexView(Model model) {
+
+        logger.info("--------index----------");
+
+        model.addAttribute("picUrl","/img/profile_small.jpg");
+
+        model.addAttribute("username", "admin");
+
+
+
+        return "index_v1";
+    }
+
 
 }

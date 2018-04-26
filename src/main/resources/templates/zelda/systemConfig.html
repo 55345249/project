@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<head th:include="include :: header">
+
+
+</head>
+<body>
+
+   <!--   <span th:text="${systemDO.javaVersion}">java版本</span>-->
+
+
+      <div class="container">
+          <div class="row">
+              <div class="col-sm-12">
+                  <div class="ibox float-e-margins">
+                      <div class="ibox-content">
+                          <form class="form-horizontal m-t" id="signupForm">
+<!--
+                          <div class="form-group">
+                                  <label class="col-sm-3 control-label">Java的运行环境版本：</label>
+                                  <div class="col-sm-6">
+                                      <div class="form-control" th:text="${systemDO.javaVersion}"></div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-3 control-label">Java的运行环境供应商：</label>
+                                  <div class="col-sm-6">
+                                      <div class="form-control" th:text="${systemDO.javaVendor}"></div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-3 control-label">Java供应商的URL：</label>
+                                  <div class="col-sm-6">
+                                      <div class="form-control" th:text="${systemDO.javaVendorUrl}"></div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-3 control-label">Java的安装路径：</label>
+                                  <div class="col-sm-6">
+                                      <div class="form-control" th:text="${systemDO.javaHome}"></div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-3 control-label">用户的账户名称：</label>
+                                  <div class="col-sm-6">
+                                      <div class="form-control" th:text="${systemDO.userName}"></div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-3 control-label">用户的主目录：</label>
+                                  <div class="col-sm-6">
+                                      <div class="form-control" th:text="${systemDO.userHome}"></div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-3 control-label">用户的当前工作目录：</label>
+                                  <div class="col-sm-6">
+                                      <div class="form-control" th:text="${systemDO.userDir}"></div>
+                                  </div>
+                              </div>
+-->
+
+
+                              <div class="form-group" th:each="systemInfo:${systemInfo}">
+                                  <label class="col-sm-3 control-label" th:text="${systemInfo.key}">Java的运行环境版本：</label>
+                                  <div class="col-sm-6">
+                                      <div class="form-control" th:text="${systemInfo.value}"></div>
+                                  </div>
+                              </div>
+
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <hr/>
+
+      <footer>
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+                      <ul class="list-inline text-center">
+                          <li class="list-inline-item"><a href="#"> <span
+                                  class="fa-stack fa-lg"> <i
+                                  class="fa fa-circle fa-stack-2x"></i> <i
+                                  class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+							</span>
+                          </a></li>
+                          <li class="list-inline-item"><a href="#"> <span
+                                  class="fa-stack fa-lg"> <i
+                                  class="fa fa-circle fa-stack-2x"></i> <i
+                                  class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+							</span>
+                          </a></li>
+                          <li class="list-inline-item"><a href="#"> <span
+                                  class="fa-stack fa-lg"> <i
+                                  class="fa fa-circle fa-stack-2x"></i> <i
+                                  class="fa fa-github fa-stack-1x fa-inverse"></i>
+							</span>
+                          </a></li>
+                      </ul>
+
+                  </div>
+              </div>
+          </div>
+      </footer>
+
+</body>
+</html>

@@ -68,6 +68,10 @@
                         <li><a id="index002" class="J_menuItem" href="index_v1.html"
                                data-index="1" th:href="@{/main1}">标准的查询列表</a></li>
                     </ul>
+                    <ul class="nav nav-second-level">
+                        <li><a id="index003" class="J_menuItem" href="index_v1.html"
+                               data-index="2" th:href="@{/system}">系统参数</a></li>
+                    </ul>
                 </li>
                 <li th:each="menu : ${menus}"><a href="#"> <i
                         class="fa fa fa-bar-chart-o" th:class="${menu.attributes.icon}"></i>

@@ -57,12 +57,12 @@ public class TestControler{
         return "say"+name;
     }
 
-    @RequestMapping("/")
+/*    @RequestMapping("/")
     public ModelAndView login(){
         System.out.println("4444");
         ModelAndView mv=new ModelAndView("indexNew.jsp");
         return mv;
-    }
+    }*/
 
     @RequestMapping("/insert")
     public void insertImg(){
