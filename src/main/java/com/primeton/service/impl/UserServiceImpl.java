@@ -2,7 +2,7 @@ package com.primeton.service.impl;
 
 import com.primeton.domain.CapUser;
 import com.primeton.domain.PageInfo;
-import com.primeton.repository.UserMapper;
+import com.primeton.repository.user.UserMapper;
 import com.primeton.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

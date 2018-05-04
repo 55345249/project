@@ -7,17 +7,30 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:mysql://192.168.20.132:8066/TESTDB
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.jdbc.Driver
-    max-idle: 10
-    max-wait: 10000
-    min-idle: 5
-    initial-size: 5
-    hikari:
-      maxLifetime: 36000
-      maximumPoolSize: 10
+    test01:
+      jdbcurl: jdbc:mysql://127.0.0.1:3306/test01
+      username: root
+      password: root
+      driver-class-name: com.mysql.jdbc.Driver
+      max-idle: 10
+      max-wait: 10000
+      min-idle: 5
+      initial-size: 5
+      hikari:
+        maxLifetime: 36000
+        maximumPoolSize: 10
+    test:
+      jdbcurl: jdbc:mysql://127.0.0.1:3306/test
+      username: root
+      password: root
+      driver-class-name: com.mysql.jdbc.Driver
+      max-idle: 10
+      max-wait: 10000
+      min-idle: 5
+      initial-size: 5
+      hikari:
+        maxLifetime: 36000
+        maximumPoolSize: 10
   thymeleaf:
     mode: LEGACYHTML5
     cache: false

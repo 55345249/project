@@ -2,9 +2,8 @@ package com.primeton.controller;
 
 import com.primeton.domain.CapUser;
 import com.primeton.domain.PageInfo;
-import com.primeton.repository.UserMapper;
+import com.primeton.repository.user.UserMapper;
 import com.primeton.service.impl.UserServiceImpl;
-import com.primeton.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class UserController {

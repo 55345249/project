@@ -1,4 +1,4 @@
-package com.primeton.repository;
+package com.primeton.repository.img;
 
 import com.primeton.domain.Img;
 import org.apache.ibatis.annotations.Delete;
