@@ -16,8 +16,8 @@ import javax.sql.DataSource;
 @MapperScan(basePackages = {"com.primeton.repository.user"}, sqlSessionFactoryRef = "sqlSessionFactory1")
 public class MybatisUserConfig {
     @Autowired
-    //@Qualifier("test01")
-    @Qualifier("test")
+    @Qualifier("test01")
+    //@Qualifier("test")
     private DataSource ds1;
 
     @Bean

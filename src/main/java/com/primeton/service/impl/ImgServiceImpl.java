@@ -1,7 +1,7 @@
 package com.primeton.service.impl;
 
 import com.primeton.domain.Img;
-import com.primeton.repository.ImgMapper;
+import com.primeton.repository.img.ImgMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
