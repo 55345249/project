@@ -49,15 +49,17 @@ public class UserController {
     public String currentPage(Model model,PageInfo pageInfo, HttpServletRequest request){
 
         int currentPage = Integer.parseInt(request.getParameter("page"));
-        //int perCount = Integer.parseInt(request.getParameter("perPageRecordCount"));
+        //int perCount = Integer.parseInt(request.getParameter("pageCount"));
+        String perCount = request.getParameter("pageCount");
+        int perCountInt = Integer.parseInt(perCount);
 
-        pageInfo.setBegin(1 + currentPage*5);
+        /*pageInfo.setBegin(1 + currentPage*5);
         pageInfo.setEnd(5 + currentPage*5);
-        pageInfo.setPerPageRecordCount(5);
+        pageInfo.setPerPageRecordCount(5);*/
 
-        /*pageInfo.setBegin(1 + currentPage*perCount);
-        pageInfo.setEnd(perCount + currentPage*perCount);
-        pageInfo.setPerPageRecordCount(perCount);*/
+        pageInfo.setBegin(1 + currentPage*perCountInt);
+        pageInfo.setEnd(perCountInt + currentPage*perCountInt);
+        pageInfo.setPerPageRecordCount(perCountInt);
 
         pageInfo.setCurrentPage(currentPage);
 

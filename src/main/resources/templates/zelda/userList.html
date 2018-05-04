@@ -116,7 +116,7 @@
                 </span>
                 <span class="page-list">每页显示
                     <span class="btn-group dropup">
-                        <select id="recordsPerPage" class="select page-size" name="recordsPerPage" style="background: transparent;" onchange="window.location.href='/perPageCount?perPageRecordCount=' + this.value + '?page=0'">
+                        <select id="pageSelect" class="select page-size" name="pageSelect" style="background: transparent;" onchange="window.location.href='/currentPage?page=0&pageCount=' + this.value ">
                             <option value="5" selected = 'selected' >5</option>
                             <option value="10" >10</option>
                         </select>
@@ -139,9 +139,9 @@
             </div>
             <div class="pagination" style="display:inline;float:right;">
                 <ul class="pagination pagination-outline">
-                    <li class="page-first"><a href="#" th:href="@{/currentPage(page=0)}">«</a></li>
+                    <li class="page-first"><a href="#" th:href="@{/currentPage(page=0,pageCount=5)}">«</a></li>
                     <li class="page-pre" th:if="${pageInfo.getPreviousPage() gt 0}">
-                        <a href="#" th:href="@{/currentPage(page=${pageInfo.currentPage-1})}">‹</a>
+                        <a href="#" th:href="@{/currentPage(page=${pageInfo.currentPage-1},pageCount=5)}">‹</a>
                     </li>
                     <!--总页数小于等于5-->
                     <div th:if="${(pageInfo.totalPageCount le 5) and (pageInfo.totalPageCount gt 0)}" style="float:left;">
@@ -150,23 +150,23 @@
                             <li class="page-number active" style="display:inline;"><span class="current_page line_height" th:text="${pg+1}">${currentPage}</span></li>
                         </span>
                         <span th:unless="${pg eq pageInfo.getCurrentPage()}" >
-                            <li class="page-number" style="display:inline;"><a href="#" th:href="@{/currentPage(page=${pg})}" th:text="${pg+1}"></a></li>
+                            <li class="page-number" style="display:inline;"><a href="#" th:href="@{/currentPage(page=${pg},pageCount=5)}" th:text="${pg+1}"></a></li>
                         </span>
                         </div>
                     </div>
                     <!-- 总数数大于5时 -->
                     <div th:if="${pageInfo.totalPageCount gt 5}" style="float:left;">
-                        <li th:if="${pageInfo.currentPage-2 ge 0}" class="page-number" style="display:inline;border:1px;"><a href="#" th:href="@{/currentPage(page=${pageInfo.currentPage}-2)}" th:text="${pageInfo.currentPage-1}"></a></li>
-                        <li th:if="${pageInfo.currentPage-1 ge 0}" class="page-number" style="display:inline;"><a href="#" th:href="@{/currentPage(page=${pageInfo.currentPage}-1)}" th:text="${pageInfo.currentPage}"></a></li>
+                        <li th:if="${pageInfo.currentPage-2 ge 0}" class="page-number" style="display:inline;border:1px;"><a href="#" th:href="@{/currentPage(page=${pageInfo.currentPage}-2,pageCount=5)}" th:text="${pageInfo.currentPage-1}"></a></li>
+                        <li th:if="${pageInfo.currentPage-1 ge 0}" class="page-number" style="display:inline;"><a href="#" th:href="@{/currentPage(page=${pageInfo.currentPage}-1,pageCount=5)}" th:text="${pageInfo.currentPage}"></a></li>
                         <li class="page-number active" style="display:inline;"><span class="current_page line_height" th:text="${pageInfo.currentPage+1}"></span></li>
-                        <li th:if="${pageInfo.currentPage+1 lt pageInfo.totalPageCount}" class="page-number" style="display:inline;"><a href="#" th:href="@{/currentPage(page=${pageInfo.currentPage}+1)}" th:text="${pageInfo.currentPage+2}"></a></li>
-                        <li th:if="${pageInfo.currentPage+2 lt pageInfo.totalPageCount}" class="page-number" style="display:inline;"><a href="#" th:href="@{/currentPage(page=${pageInfo.currentPage}+2)}" th:text="${pageInfo.currentPage+3}"></a></li>
+                        <li th:if="${pageInfo.currentPage+1 lt pageInfo.totalPageCount}" class="page-number" style="display:inline;"><a href="#" th:href="@{/currentPage(page=${pageInfo.currentPage}+1,pageCount=5)}" th:text="${pageInfo.currentPage+2}"></a></li>
+                        <li th:if="${pageInfo.currentPage+2 lt pageInfo.totalPageCount}" class="page-number" style="display:inline;"><a href="#" th:href="@{/currentPage(page=${pageInfo.currentPage}+2,pageCount=5)}" th:text="${pageInfo.currentPage+3}"></a></li>
                     </div>
 
                     <li class= "page-next" th:if="${pageInfo.getNextPage() le pageInfo.totalPageCount-1}">
-                        <a href="#" th:href="@{/currentPage(page=${pageInfo.currentPage+1})}">›</a>
+                        <a href="#" th:href="@{/currentPage(page=${pageInfo.currentPage+1},pageCount=5)}">›</a>
                     </li>
-                    <li class="page-last"><a href="#" th:href="@{/currentPage(page=${pageInfo.totalPageCount-1})}" >»</a></li>
+                    <li class="page-last"><a href="#" th:href="@{/currentPage(page=${pageInfo.totalPageCount-1},pageCount=5)}" >»</a></li>
                 </ul>
             </div>
 
@@ -180,8 +180,29 @@
 </body>
 <script src="/dist/js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
-    var pageCount = $('#recordsPerPage option:selected').val();
-    alert(pageCount);
 
+    <!--function selectValue(){
+        var pageCount = $('#pageSelect option:selected').val();
+        alert(pageCount);
+        $.ajax({
+            type:'get',
+
+            data:{
+                'page':'0',
+                'pageCount':pageCount
+            },
+            dataType:'json',
+            url:'/currentPage',
+            success:function(){
+                alert('ajax成功调用');
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                alert('ajax调用失败');
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus);
+            }
+        })
+    }-->
 </script>
 </html>
