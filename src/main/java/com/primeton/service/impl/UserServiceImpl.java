@@ -1,49 +1,45 @@
 package com.primeton.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.primeton.domain.CapUser;
+import com.primeton.domain.PageInfo;
 import com.primeton.repository.UserMapper;
+import com.primeton.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
-import java.util.Map;
 
-@Service("userService")
-public class UserServiceImpl implements UserMapper {
+@Service
+public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private UserService userService;
 
-    @Override
     public List<CapUser> selectUser(Integer startNum, Integer viewNum) {
         return userMapper.selectUser(startNum,viewNum);
     }
 
-    @Override
+
     public void insert(CapUser user) {
         userMapper.insert(user);
     }
 
     @Override
-    public List<CapUser> selectByExample(Example example) {
-        return null;
+    public List<CapUser> queryUser(PageInfo pageInfo) {
+
+        List<CapUser> capUserList = userMapper.listUser(pageInfo);
+        return capUserList;
+    }
+
+    @Override
+    public Integer totalCount() {
+        int totalCount = userMapper.queryTotalCount();
+        return totalCount;
     }
 
     /*@Override
-    public List<CapUser> list(Map<String, Object> map) {
-        return userMapper.list(map);
-    }
-
-    @Override
-    public int count(Map<String, Object> map) {
-        return userMapper.count(map);
-    }*/
-
-    @Override
     public PageInfo<CapUser> queryLimitedUser(String username,Integer page, Integer pageSize) {
         PageHelper.startPage(page, pageSize);
 
@@ -54,5 +50,5 @@ public class UserServiceImpl implements UserMapper {
         List<CapUser> users = userMapper.selectByExample(example);
         return new PageInfo<>(users);
 
-    }
+    }*/
 }

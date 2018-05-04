@@ -1,12 +1,10 @@
 package com.primeton.repository;
 
-import com.github.pagehelper.PageInfo;
 import com.primeton.domain.CapUser;
+import com.primeton.domain.PageInfo;
 import org.apache.ibatis.annotations.*;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface UserMapper {
@@ -18,12 +16,13 @@ public interface UserMapper {
     @Options(useGeneratedKeys = true, keyProperty = "operatorId", keyColumn = "operator_id")
     void insert(CapUser user);
 
-    /*@Select("select * from cap_user")
-    List<CapUser> list(Map<String, Object> map);
+    @Select("select count(*) from cap_user")
+    Integer queryTotalCount();
 
-    int count(Map<String, Object> map);*/
+    @Select("select operator_id as operatorId,tenant_id as tenantId,user_id as userId,user_name as userName,password,unlocktime,lastlogin,createtime from cap_user order by createtime desc limit #{pageInfo.begin},#{pageInfo.perPageRecordCount}")
+    List<CapUser> listUser(@Param("pageInfo") PageInfo pageInfo);
 
-    List<CapUser> selectByExample(Example example);
 
-    PageInfo<CapUser> queryLimitedUser(String username,Integer page, Integer pageSize);
+    //PageInfo<CapUser> queryLimitedUser(String username,Integer page, Integer pageSize);
+
 }

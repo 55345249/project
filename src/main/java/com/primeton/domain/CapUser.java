@@ -1,18 +1,21 @@
 package com.primeton.domain;
 
-
-import javax.persistence.Table;
-
-@Table(name="cap_user")
 public class CapUser {
 
     String operatorId;
+
     String tenantId;
+
     String userId;
+
     String userName;
+
     String passWord;
+
     String unlockTime;
+
     String lastLogin;
+
     String createTime;
 
     public CapUser(){
@@ -98,7 +101,22 @@ public class CapUser {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(String createTime)
+    {
         this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        return "CapUser{" +
+                "operatorId='" + operatorId + '\'' +
+                ", tenantId='" + tenantId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", passWord='" + passWord + '\'' +
+                ", unlockTime='" + unlockTime + '\'' +
+                ", lastLogin='" + lastLogin + '\'' +
+                ", createTime='" + createTime + '\'' +
+                '}';
     }
 }

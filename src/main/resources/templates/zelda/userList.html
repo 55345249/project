@@ -1,23 +1,9 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <!--<meta charset="UTF-8">-->
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>查询用户</title>
+<html xmlns:th="http://www.w3.org/1999/xhtml" >
 
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+<head th:include="include :: header"></head>
 
-    <!--<link href="favicon.ico" rel="shortcut icon">-->
-    <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
-    <link href="/css/plugins/toastr/toastr.min.css" rel="stylesheet">
-    <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
-    <link rel="stylesheet" href="/css/layer.css" id="layui_layer_skinlayercss" style="">
-</head>
 <body class="gray-bg">
-<script src="dist/js/jquery-2.1.4.min.js"></script>
-<script src="dist/js/bootstrap.min.js"></script>
 
 <div class="fixed-table-toolbar">
     <div class="columns pull-left">
@@ -36,6 +22,7 @@
         <input class="form-control" id="searchName" placeholder="姓名" type="text">
     </div>
 </div>
+
 <div class="bootstrap-table">
     <div class="fixed-table-toolbar">
         <div class="bars pull-left"></div>
@@ -96,7 +83,7 @@
                     </th>-->
                 </tr>
                 </thead>
-                <tbody >
+                <tbody>
                 <tr th:each="user : ${userList}">
                     <td class="bs-checkbox"><input data-index="0" name="btSelectItem" type="checkbox"></td>
                     <td th:text="${user.operatorId}"></td>
@@ -115,171 +102,86 @@
                                                              mce_href="#" onclick="resetPwd('137')"><i
                             class="fa fa-key"></i></a></td>-->
                 </tr>
-                <!--<tr data-index="1">
-                    <td class="bs-checkbox"><input data-index="1" name="btSelectItem" type="checkbox"></td>
-                    <td style="">136</td>
-                    <td style="">郭德纲</td>
-                    <td style="">gdg</td>
-                    <td style="">gdg@bootdo.com</td>
-                    <td style="">137</td>
-                    <td style="">测试用户2</td>
-                    <td style="">test2</td>
-                    <td style="">test2@bootdo.com</td>
-                </tr>-->
                 </tbody>
             </table>
         </div>
-        <div class="fixed-table-footer" style="display: none;">
-            <table>
-                <tbody>
-                <tr></tr>
-                </tbody>
-            </table>
-        </div>
-        <!--<div class="fixed-table-pagination" style="display: block;">
-            <div class="pull-left pagination-detail"><span class="pagination-info">显示第 <span th:text="${pageNo}"></span> 到第 <span th:text="${pageSize}"></span> 条记录，总共 <span th:text="${totalPages}"></span> 条记录</span><span
-                    class="page-list">每页显示 <span class="btn-group dropup"><button type="button"
-                                                                                  class="btn btn-default  btn-outline dropdown-toggle"
-                                                                                  data-toggle="dropdown"><span
-                    class="page-size" th:text="${pageSize}"></span> <span class="caret"></span></button><ul class="dropdown-menu"
-                                                                                        role="menu"><li
-                    class="active"><a href="javascript:void(0)">10</a></li><li><a href="javascript:void(0)">25</a></li></ul></span> 条记录</span>
+
+        <div class="fixed-table-pagination" >
+            <div class="pull-left pagination-detail" style="display:inline;">
+                <span class="pagination-info">显示第
+                    <span th:text="${pageInfo.begin}"></span> 到第
+                    <span th:text="${pageInfo.end}"></span> 条记录，总共
+                    <span th:text="${pageInfo.totalPageCount}"></span> 页，
+                    <span th:text="${pageInfo.totalRecordCount}"></span> 条记录
+                </span>
+                <span class="page-list">每页显示
+                    <span class="btn-group dropup">
+                        <select id="recordsPerPage" class="select page-size" name="recordsPerPage" style="background: transparent;" onchange="window.location.href='/perPageCount?perPageRecordCount=' + this.value + '?page=0'">
+                            <option value="5" selected = 'selected' >5</option>
+                            <option value="10" >10</option>
+                        </select>
+                        <!--<button type="button" class="btn btn-default  btn-outline dropdown-toggle"
+                                data-toggle="dropdown">
+                            <span class="page-size" th:text="${pageInfo.perPageRecordCount}"></span>
+                            <span class="caret"></span>
+
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="active">
+                                <a href="#" th:herf="@{/perPageCount(param.perPageRecordCount=10)}" >10
+                                </a>
+                            </li>
+                            <li><a href="#" th:herf="@{/perPageCount(param.perPageRecordCount=20)}" >20</a>
+                            </li>
+                        </ul>-->
+                    </span> 条记录
+                </span>
             </div>
-            <div class="pull-right pagination">
+            <div class="pagination" style="display:inline;float:right;">
                 <ul class="pagination pagination-outline">
-                    <li class="page-first disabled"><a href="javascript:void(0)">«</a></li>
-                    <li class="page-pre disabled">
-                        <a th:if="${not isFirstPage}" th:href="@{${'/user'}(pageNum=${pageNum-1},pageSize=${pageSize})}">‹</a>
-                        <a th:if="${isFirstPagee}" href="javascript:void(0);">‹</a>
-                        &lt;!&ndash;<a href="javascript:void(0)">‹</a>&ndash;&gt;
+                    <li class="page-first"><a href="#" th:href="@{/currentPage(page=0)}">«</a></li>
+                    <li class="page-pre" th:if="${pageInfo.getPreviousPage() gt 0}">
+                        <a href="#" th:href="@{/currentPage(page=${pageInfo.currentPage-1})}">‹</a>
                     </li>
-                    <li class="page-number active"><a href="javascript:void(0)">1</a></li>
-                    <li class="page-number"><a href="javascript:void(0)">2</a></li>
-                    <li class="page-next">
-                        <a th:if="${not isLastPage}" th:href="@{${'/user'}(pageNum=${pageNum+1},size=${pageSize})}">›</a>
-                        <a th:if="${isLastPage}" href="javascript:void(0);">›</a>
-                        &lt;!&ndash;<a href="javascript:void(0)">›</a>&ndash;&gt;
+                    <!--总页数小于等于5-->
+                    <div th:if="${(pageInfo.totalPageCount le 5) and (pageInfo.totalPageCount gt 0)}" style="float:left;">
+                        <div style="display:inline;" th:each="pg : ${#numbers.sequence(0, pageInfo.totalPageCount - 1)}" >
+                        <span th:if="${pg eq pageInfo.getCurrentPage()}" >
+                            <li class="page-number active" style="display:inline;"><span class="current_page line_height" th:text="${pg+1}">${currentPage}</span></li>
+                        </span>
+                        <span th:unless="${pg eq pageInfo.getCurrentPage()}" >
+                            <li class="page-number" style="display:inline;"><a href="#" th:href="@{/currentPage(page=${pg})}" th:text="${pg+1}"></a></li>
+                        </span>
+                        </div>
+                    </div>
+                    <!-- 总数数大于5时 -->
+                    <div th:if="${pageInfo.totalPageCount gt 5}" style="float:left;">
+                        <li th:if="${pageInfo.currentPage-2 ge 0}" class="page-number" style="display:inline;border:1px;"><a href="#" th:href="@{/currentPage(page=${pageInfo.currentPage}-2)}" th:text="${pageInfo.currentPage-1}"></a></li>
+                        <li th:if="${pageInfo.currentPage-1 ge 0}" class="page-number" style="display:inline;"><a href="#" th:href="@{/currentPage(page=${pageInfo.currentPage}-1)}" th:text="${pageInfo.currentPage}"></a></li>
+                        <li class="page-number active" style="display:inline;"><span class="current_page line_height" th:text="${pageInfo.currentPage+1}"></span></li>
+                        <li th:if="${pageInfo.currentPage+1 lt pageInfo.totalPageCount}" class="page-number" style="display:inline;"><a href="#" th:href="@{/currentPage(page=${pageInfo.currentPage}+1)}" th:text="${pageInfo.currentPage+2}"></a></li>
+                        <li th:if="${pageInfo.currentPage+2 lt pageInfo.totalPageCount}" class="page-number" style="display:inline;"><a href="#" th:href="@{/currentPage(page=${pageInfo.currentPage}+2)}" th:text="${pageInfo.currentPage+3}"></a></li>
+                    </div>
+
+                    <li class= "page-next" th:if="${pageInfo.getNextPage() le pageInfo.totalPageCount-1}">
+                        <a href="#" th:href="@{/currentPage(page=${pageInfo.currentPage+1})}">›</a>
                     </li>
-                    <li class="page-last"><a href="javascript:void(0)">»</a></li>
+                    <li class="page-last"><a href="#" th:href="@{/currentPage(page=${pageInfo.totalPageCount-1})}" >»</a></li>
                 </ul>
             </div>
-            &lt;!&ndash; 处理页数大于7 的情况 &ndash;&gt;
-            &lt;!&ndash;<ul class="pagination" data-th-if="${page.totalPages gt 7}" >
-                &lt;!&ndash; 上一页 &ndash;&gt;
-                <li class="page-item" data-th-classappend="*{first} ? 'disabled' : ''">
-                    <a href="javascript:void(0);" class="page-link" data-th-attr="pageIndex=${page.number} - 1" aria-label="Previous">
-                        <span aria-hidden="true">«</span>
-                    </a>
-                </li>
 
-                &lt;!&ndash; 首页 &ndash;&gt;
-                <li class="page-item" data-th-classappend="${(page.number + 1) eq 1} ? 'active' : ''" >
-                    <a href="javascript:void(0);" class="page-link" data-th-attr="pageIndex=0">1</a>
-                </li>
-
-
-                &lt;!&ndash; 当前页面小于等于4 &ndash;&gt;
-                <li class="page-item" data-th-if="${(page.number + 1) le 4}" data-th-each="i : ${#numbers.sequence(2,5)}"
-                    data-th-classappend="${(page.number + 1) eq i} ? 'active' : ''" >
-                    <a class="page-link" href="javascript:void(0);" data-th-attr="pageIndex=${i} - 1">
-                        <span data-th-text="${i}"></span>
-                    </a>
-                </li>
-
-                <li class="page-item disabled" data-th-if="${(page.number + 1) le 4}">
-                    <a href="javascript:void(0);" class="page-link">
-                        <span aria-hidden="true">...</span>
-                    </a>
-                </li>
-
-                &lt;!&ndash; 最后一页与当前页面之差，小于等于3 &ndash;&gt;
-                <li class="page-item disabled" data-th-if="${(page.totalPages-(page.number + 1)) le 3}">
-                    <a href="javascript:void(0);" class="page-link">
-                        <span aria-hidden="true">...</span>
-                    </a>
-                </li>
-                <li class="page-item" data-th-if="${(page.totalPages-(page.number + 1)) le 3}" data-th-each="i : ${#numbers.sequence(page.totalPages-4, page.totalPages-1)}"
-                    data-th-classappend="${(page.number + 1) eq i} ? 'active' : ''" >
-                    <a class="page-link" href="javascript:void(0);" data-th-attr="pageIndex=${i} - 1">
-                        <span data-th-text="${i}"></span>
-                    </a>
-                </li>
-
-                &lt;!&ndash; 最后一页与当前页面之差大于3，且  当前页面大于4&ndash;&gt;
-
-                <li class="page-item disabled" data-th-if="${((page.number + 1) gt 4) && ((page.totalPages-(page.number + 1)) gt 3 )}">
-                    <a href="javascript:void(0);" class="page-link">
-                        <span aria-hidden="true">...</span>
-                    </a>
-                </li>
-                <li class="page-item" data-th-if="${((page.number + 1) gt 4) && ((page.totalPages-(page.number + 1)) gt 3 )}" >
-                    <a href="javascript:void(0);" class="page-link" data-th-attr="pageIndex=${page.number}">[[${page.number}]]</a>
-                </li>
-                <li class="page-item active" data-th-if="${((page.number + 1) gt 4) && ((page.totalPages-(page.number + 1)) gt 3 )}">
-                    <a href="javascript:void(0);" class="page-link" data-th-attr="pageIndex=${page.number} + 1">[[${page.number + 1}]]</a>
-                </li>
-                <li class="page-item" data-th-if="${((page.number + 1) gt 4) && ((page.totalPages-(page.number + 1)) gt 3 )}">
-                    <a href="javascript:void(0);" class="page-link" data-th-attr="pageIndex=${page.number} + 2">[[${page.number + 2}]]</a>
-                </li>
-
-                <li class="page-item disabled"  data-th-if="${((page.number + 1) gt 4) && ((page.totalPages-(page.number + 1)) gt 3 )}">
-                    <a href="javascript:void(0);" class="page-link">
-                        <span aria-hidden="true">...</span>
-                    </a>
-                </li>
-
-                &lt;!&ndash; 最后一页 &ndash;&gt;
-                <li class="page-item" data-th-classappend="${(page.number + 1) eq page.totalPages} ? 'active' : ''" >
-                    <a href="javascript:void(0);" class="page-link" data-th-attr="pageIndex=${page.totalPages} - 1">[[${page.totalPages}]]</a>
-                </li>
-
-                &lt;!&ndash; 下一页 &ndash;&gt;
-                <li class="page-item" data-th-classappend="*{last} ? 'disabled' : ''">
-                    <a href="javascript:void(0);" class="page-link" data-th-attr="pageIndex=${page.number} + 1" aria-label="Next">
-                        <span aria-hidden="true">»</span>
-                    </a>
-                </li>
-            </ul>&ndash;&gt;
-        </div>-->
+        </div>
     </div>
 </div>
-<!-- 全局js -->
-<script src="/dist/js/jquery.min.js?v=2.1.4"></script>
-<script src="/dist/js/bootstrap.min.js?v=3.3.6"></script>
-<script src="/dist/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="/dist/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="/dist/js/plugins/layer/layer.min.js"></script>
-<!-- 自定义js -->
-<script src="/dist/js/app.js?v=4.1.0"></script>
-<script type="text/javascript" src="/dist/js/contabs.js"></script>
-<!-- 第三方插件 -->
-<script src="/dist/js/plugins/pace/pace.min.js"></script>
-<!-- vue -->
-<script type="text/javascript"
-        src="/dist/js/vue.min.js">
+<!--<div th:include="include :: footer"></div>-->
+
+<!--<script type="text/javascript" src="/js/appjs/sys/user/user.js"></script>-->
+
+</body>
+<script src="/dist/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+    var pageCount = $('#recordsPerPage option:selected').val();
+    alert(pageCount);
 
 </script>
-<script src="/dist/js/appjs/oa/webSocket/sockjs.min.js"></script>
-<script src="/dist/js/appjs/oa/webSocket/stomp.min.js"></script>
-<!-- Toastr script -->
-<script src="/js/plugins/toastr/toastr.min.js"></script>
-
-
-<div th:fragment="footer">
-    <script type="text/javascript" src="/dist/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/dist/js/plugins/iCheck/icheck.min.js"></script>
-    <script type="text/javascript" src="/dist/js/plugins/cropper/cropper.min.js"></script>
-    <script type="text/javascript" src="/dist/js/plugins/layer/laydate/laydate.js"></script>
-    <script type="text/javascript" src="/dist/js/plugins/distpicker/distpicker.data.min.js"></script>
-    <script type="text/javascript" src="/dist/js/plugins/distpicker/distpicker.min.js"></script>
-    <script type="text/javascript" src="/dist/js/appjs/sys/user/gg-bootdo.js"></script>
-    <!--校验插件-->
-    <script src="/dist/js/plugins/validate/jquery.validate.min.js"></script>
-    <script src="/dist/js/plugins/validate/jquery.validate.extend.js"></script>
-    <script src="/dist/js/plugins/validate/messages_zh.min.js"></script>
-</div>
-
-<script type="text/javascript" src="/js/appjs/sys/user/user.js"></script>
-</body>
 </html>
